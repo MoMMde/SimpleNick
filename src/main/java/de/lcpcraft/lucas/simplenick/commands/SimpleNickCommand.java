@@ -5,6 +5,7 @@ import de.lcpcraft.lucas.simplenick.reflection.ProfileChanger;
 import de.lcpcraft.lucas.simplenick.utils.Message;
 import de.lcpcraft.lucas.simplenick.utils.NameCreator;
 import de.lcpcraft.lucas.simplenick.utils.TexturesModel;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -51,7 +52,12 @@ public class SimpleNickCommand implements CommandExecutor {
                     p.sendMessage(Message.prefix + Message.configReloaded);
                 } else sendHelp(commandSender);
             } else if (strings.length == 2) {
-                if (strings[0].equalsIgnoreCase("random") && p.hasPermission("simplenick.nick.other")) {
+                if (strings[0].equalsIgnoreCase("setname")) {
+                    SimpleNick.nicknameManager.nickPlayer(p.getUniqueId(), strings[1]);
+                    p.sendMessage(Component.text("Dein Name ist nun: ").append(Component.text(strings[1])));
+                    return true;
+                }
+                else if (strings[0].equalsIgnoreCase("random") && p.hasPermission("simplenick.nick.other")) {
                     nickPlayer(commandSender, strings[1]);
                 } else if (strings[0].equalsIgnoreCase("skin") && p.hasPermission("simplenick.nick")) {
                     if (strings[1].equalsIgnoreCase("random")) {
